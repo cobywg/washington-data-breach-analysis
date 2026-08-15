@@ -1,26 +1,43 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { countsByFips } from "./breach-data";
+import { countsByFips, type MapMetric } from "./breach-data";
 
-const TOKEN = process.env.pk.eyJ1IjoiY29ieXdnIiwiYSI6ImNsb290dHAyYzAzN2syam16N3FrbXVtNnIifQ._au5sBLoVsaFSUvkTDOLkA;
+const TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const SOURCE_ID = "us-states";
 const LAYER_ID = "breach-counts";
 
-const countExpression: mapboxgl.Expression = [
-  "match",
-  ["to-string", ["get", "STATE_ID"]],
-  ...Object.entries(countsByFips).flatMap(([fips, state]) => [
-    fips,
-    state.count,
-  ]),
-  0,
-];
+const COLORS = ["#202733", "#173f4c", "#126576", "#0b8f9d", "#20c6bb", "#8af5d8"];
+
+function metricExpression(metric: MapMetric): mapboxgl.Expression {
+  return [
+    "match",
+    ["to-string", ["get", "STATE_ID"]],
+    ...Object.entries(countsByFips).flatMap(([fips, state]) => [
+      fips,
+      state[metric],
+    ]),
+    0,
+  ];
+}
+
+function fillColorExpression(metric: MapMetric): mapboxgl.Expression {
+  const stops = metric === "breaches"
+    ? [1, COLORS[1], 10, COLORS[2], 25, COLORS[3], 50, COLORS[4], 100, COLORS[5]]
+    : [10_000, COLORS[1], 50_000, COLORS[2], 250_000, COLORS[3], 1_000_000, COLORS[4], 3_000_000, COLORS[5]];
+
+  return ["step", metricExpression(metric), COLORS[0], ...stops] as mapboxgl.Expression;
+}
+
+const formatNumber = new Intl.NumberFormat("en-US");
 
 export function BreachMap() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<mapboxgl.Map | null>(null);
+  const metricRef = useRef<MapMetric>("breaches");
+  const [metric, setMetric] = useState<MapMetric>("breaches");
 
   useEffect(() => {
     if (!containerRef.current || !TOKEN) return;
@@ -35,6 +52,7 @@ export function BreachMap() {
       maxZoom: 7,
       attributionControl: true,
     });
+    mapRef.current = map;
 
     map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "top-right");
 
@@ -56,21 +74,7 @@ export function BreachMap() {
         source: SOURCE_ID,
         "source-layer": "states",
         paint: {
-          "fill-color": [
-            "step",
-            countExpression,
-            "#202733",
-            1,
-            "#173f4c",
-            10,
-            "#126576",
-            25,
-            "#0b8f9d",
-            50,
-            "#20c6bb",
-            100,
-            "#8af5d8",
-          ],
+          "fill-color": fillColorExpression(metricRef.current),
           "fill-opacity": 0.88,
           "fill-outline-color": "#8da1ad",
         },
@@ -88,7 +92,7 @@ export function BreachMap() {
         popup
           .setLngLat(event.lngLat)
           .setHTML(
-            `<div class="map-popup"><span>${state.name}</span><strong>${state.count}</strong><small>reported breaches</small></div>`,
+            `<div class="map-popup"><span>${state.name}</span><strong>${formatNumber.format(state.breaches)}</strong><small>breach notifications</small><strong>${formatNumber.format(state.affected)}</strong><small>Washingtonians affected</small></div>`,
           )
           .addTo(map);
       });
@@ -102,8 +106,17 @@ export function BreachMap() {
     return () => {
       popup.remove();
       map.remove();
+      mapRef.current = null;
     };
   }, []);
+
+  useEffect(() => {
+    metricRef.current = metric;
+    const map = mapRef.current;
+    if (map?.getLayer(LAYER_ID)) {
+      map.setPaintProperty(LAYER_ID, "fill-color", fillColorExpression(metric));
+    }
+  }, [metric]);
 
   if (!TOKEN) {
     return (
@@ -116,19 +129,38 @@ export function BreachMap() {
   }
 
   return (
-    <div className="map-shell">
-      <div ref={containerRef} className="map" aria-label="Choropleth map of breach counts by entity state" />
-      <div className="legend" aria-label="Map legend">
-        <span>Breaches</span>
-        <div className="legend-scale" aria-hidden="true" />
-        <div className="legend-labels">
-          <small>0</small>
-          <small>25</small>
-          <small>50</small>
-          <small>100+</small>
-        </div>
+    <div className="map-experience">
+      <div className="metric-toggle" aria-label="Select map measurement">
+        <button
+          type="button"
+          aria-pressed={metric === "breaches"}
+          onClick={() => setMetric("breaches")}
+        >
+          Breaches
+        </button>
+        <button
+          type="button"
+          aria-pressed={metric === "affected"}
+          onClick={() => setMetric("affected")}
+        >
+          People affected
+        </button>
       </div>
-      <div className="map-total">50 states + DC evaluated</div>
+      <div className="map-shell">
+        <div ref={containerRef} className="map" aria-label={`Choropleth map of ${metric === "breaches" ? "breach counts" : "affected Washingtonians"} by entity state`} />
+        <div className="legend" aria-label="Map legend">
+          <span>{metric === "breaches" ? "Breach notifications" : "Washingtonians affected"}</span>
+          <div className="legend-scale" aria-hidden="true" />
+          <div className="legend-labels">
+            {metric === "breaches" ? (
+              <><small>0</small><small>25</small><small>50</small><small>100+</small></>
+            ) : (
+              <><small>0</small><small>250K</small><small>1M</small><small>3M+</small></>
+            )}
+          </div>
+        </div>
+        <div className="map-total">50 states + DC evaluated</div>
+      </div>
     </div>
   );
 }

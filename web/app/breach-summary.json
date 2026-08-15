@@ -1,0 +1,380 @@
+{
+  "reportingYears": [
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "totals": {
+    "breaches": 846,
+    "affected": 30041469,
+    "missingAffected": 2
+  },
+  "mapped": {
+    "breaches": 786,
+    "affected": 27877170
+  },
+  "unknownState": {
+    "breaches": 60,
+    "affected": 2164299
+  },
+  "states": [
+    {
+      "abbreviation": "AL",
+      "name": "Alabama",
+      "fips": "01",
+      "breaches": 2,
+      "affected": 23389
+    },
+    {
+      "abbreviation": "AK",
+      "name": "Alaska",
+      "fips": "02",
+      "breaches": 2,
+      "affected": 5717
+    },
+    {
+      "abbreviation": "AZ",
+      "name": "Arizona",
+      "fips": "04",
+      "breaches": 13,
+      "affected": 163311
+    },
+    {
+      "abbreviation": "AR",
+      "name": "Arkansas",
+      "fips": "05",
+      "breaches": 1,
+      "affected": 3044
+    },
+    {
+      "abbreviation": "CA",
+      "name": "California",
+      "fips": "06",
+      "breaches": 82,
+      "affected": 1630725
+    },
+    {
+      "abbreviation": "CO",
+      "name": "Colorado",
+      "fips": "08",
+      "breaches": 13,
+      "affected": 88154
+    },
+    {
+      "abbreviation": "CT",
+      "name": "Connecticut",
+      "fips": "09",
+      "breaches": 9,
+      "affected": 56659
+    },
+    {
+      "abbreviation": "DE",
+      "name": "Delaware",
+      "fips": "10",
+      "breaches": 4,
+      "affected": 109189
+    },
+    {
+      "abbreviation": "DC",
+      "name": "District of Columbia",
+      "fips": "11",
+      "breaches": 0,
+      "affected": 0
+    },
+    {
+      "abbreviation": "FL",
+      "name": "Florida",
+      "fips": "12",
+      "breaches": 26,
+      "affected": 369389
+    },
+    {
+      "abbreviation": "GA",
+      "name": "Georgia",
+      "fips": "13",
+      "breaches": 25,
+      "affected": 622962
+    },
+    {
+      "abbreviation": "HI",
+      "name": "Hawaii",
+      "fips": "15",
+      "breaches": 1,
+      "affected": 1950
+    },
+    {
+      "abbreviation": "ID",
+      "name": "Idaho",
+      "fips": "16",
+      "breaches": 8,
+      "affected": 103401
+    },
+    {
+      "abbreviation": "IL",
+      "name": "Illinois",
+      "fips": "17",
+      "breaches": 35,
+      "affected": 786794
+    },
+    {
+      "abbreviation": "IN",
+      "name": "Indiana",
+      "fips": "18",
+      "breaches": 5,
+      "affected": 74030
+    },
+    {
+      "abbreviation": "IA",
+      "name": "Iowa",
+      "fips": "19",
+      "breaches": 7,
+      "affected": 89000
+    },
+    {
+      "abbreviation": "KS",
+      "name": "Kansas",
+      "fips": "20",
+      "breaches": 4,
+      "affected": 36218
+    },
+    {
+      "abbreviation": "KY",
+      "name": "Kentucky",
+      "fips": "21",
+      "breaches": 5,
+      "affected": 37580
+    },
+    {
+      "abbreviation": "LA",
+      "name": "Louisiana",
+      "fips": "22",
+      "breaches": 0,
+      "affected": 0
+    },
+    {
+      "abbreviation": "ME",
+      "name": "Maine",
+      "fips": "23",
+      "breaches": 4,
+      "affected": 9408
+    },
+    {
+      "abbreviation": "MD",
+      "name": "Maryland",
+      "fips": "24",
+      "breaches": 7,
+      "affected": 13977
+    },
+    {
+      "abbreviation": "MA",
+      "name": "Massachusetts",
+      "fips": "25",
+      "breaches": 18,
+      "affected": 68390
+    },
+    {
+      "abbreviation": "MI",
+      "name": "Michigan",
+      "fips": "26",
+      "breaches": 14,
+      "affected": 79603
+    },
+    {
+      "abbreviation": "MN",
+      "name": "Minnesota",
+      "fips": "27",
+      "breaches": 7,
+      "affected": 3168703
+    },
+    {
+      "abbreviation": "MS",
+      "name": "Mississippi",
+      "fips": "28",
+      "breaches": 1,
+      "affected": 2477
+    },
+    {
+      "abbreviation": "MO",
+      "name": "Missouri",
+      "fips": "29",
+      "breaches": 10,
+      "affected": 22372
+    },
+    {
+      "abbreviation": "MT",
+      "name": "Montana",
+      "fips": "30",
+      "breaches": 4,
+      "affected": 5220
+    },
+    {
+      "abbreviation": "NE",
+      "name": "Nebraska",
+      "fips": "31",
+      "breaches": 5,
+      "affected": 81320
+    },
+    {
+      "abbreviation": "NV",
+      "name": "Nevada",
+      "fips": "32",
+      "breaches": 12,
+      "affected": 1638469
+    },
+    {
+      "abbreviation": "NH",
+      "name": "New Hampshire",
+      "fips": "33",
+      "breaches": 0,
+      "affected": 0
+    },
+    {
+      "abbreviation": "NJ",
+      "name": "New Jersey",
+      "fips": "34",
+      "breaches": 18,
+      "affected": 328972
+    },
+    {
+      "abbreviation": "NM",
+      "name": "New Mexico",
+      "fips": "35",
+      "breaches": 2,
+      "affected": 1415
+    },
+    {
+      "abbreviation": "NY",
+      "name": "New York",
+      "fips": "36",
+      "breaches": 30,
+      "affected": 490629
+    },
+    {
+      "abbreviation": "NC",
+      "name": "North Carolina",
+      "fips": "37",
+      "breaches": 11,
+      "affected": 42859
+    },
+    {
+      "abbreviation": "ND",
+      "name": "North Dakota",
+      "fips": "38",
+      "breaches": 2,
+      "affected": 4193
+    },
+    {
+      "abbreviation": "OH",
+      "name": "Ohio",
+      "fips": "39",
+      "breaches": 16,
+      "affected": 103343
+    },
+    {
+      "abbreviation": "OK",
+      "name": "Oklahoma",
+      "fips": "40",
+      "breaches": 3,
+      "affected": 8817
+    },
+    {
+      "abbreviation": "OR",
+      "name": "Oregon",
+      "fips": "41",
+      "breaches": 22,
+      "affected": 75695
+    },
+    {
+      "abbreviation": "PA",
+      "name": "Pennsylvania",
+      "fips": "42",
+      "breaches": 38,
+      "affected": 3516369
+    },
+    {
+      "abbreviation": "RI",
+      "name": "Rhode Island",
+      "fips": "44",
+      "breaches": 1,
+      "affected": 2193
+    },
+    {
+      "abbreviation": "SC",
+      "name": "South Carolina",
+      "fips": "45",
+      "breaches": 2,
+      "affected": 26792
+    },
+    {
+      "abbreviation": "SD",
+      "name": "South Dakota",
+      "fips": "46",
+      "breaches": 1,
+      "affected": 2639
+    },
+    {
+      "abbreviation": "TN",
+      "name": "Tennessee",
+      "fips": "47",
+      "breaches": 15,
+      "affected": 358710
+    },
+    {
+      "abbreviation": "TX",
+      "name": "Texas",
+      "fips": "48",
+      "breaches": 37,
+      "affected": 1270936
+    },
+    {
+      "abbreviation": "UT",
+      "name": "Utah",
+      "fips": "49",
+      "breaches": 6,
+      "affected": 302705
+    },
+    {
+      "abbreviation": "VT",
+      "name": "Vermont",
+      "fips": "50",
+      "breaches": 4,
+      "affected": 16522
+    },
+    {
+      "abbreviation": "VA",
+      "name": "Virginia",
+      "fips": "51",
+      "breaches": 8,
+      "affected": 83702
+    },
+    {
+      "abbreviation": "WA",
+      "name": "Washington",
+      "fips": "53",
+      "breaches": 236,
+      "affected": 11936217
+    },
+    {
+      "abbreviation": "WV",
+      "name": "West Virginia",
+      "fips": "54",
+      "breaches": 0,
+      "affected": 0
+    },
+    {
+      "abbreviation": "WI",
+      "name": "Wisconsin",
+      "fips": "55",
+      "breaches": 10,
+      "affected": 13011
+    },
+    {
+      "abbreviation": "WY",
+      "name": "Wyoming",
+      "fips": "56",
+      "breaches": 0,
+      "affected": 0
+    }
+  ]
+}

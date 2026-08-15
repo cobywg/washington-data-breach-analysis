@@ -10,7 +10,6 @@ US_STATE_CODES = {
     "DC",
 }
 
-<<<<<<< HEAD
 # def read ():
 #read.cvslink
 #print.cvlink(10rows)
@@ -62,7 +61,6 @@ plot_cyberattack_types(data)
 #Also Data breach Cause variable
 # Maybe other chart would be better? want to get a idea of data before cleaning.
 
-=======
 
 def clean_breach_data(
     breach_data: pandas.DataFrame,
@@ -102,7 +100,7 @@ def clean_breach_data(
 
 
 def aggregate_breaches_by_state(
-    cleaned_data: pandas.DataFrame,
+        cleaned_data: pandas.DataFrame,
 ) -> pandas.DataFrame:
     """Count unique breach notifications for every state and DC."""
     required_columns = {"Id", "EntityState"}
@@ -121,4 +119,3 @@ def aggregate_breaches_by_state(
         .rename("BreachCount")
         .reset_index()
     )
->>>>>>> b760382 (added mapbox & website functionality)

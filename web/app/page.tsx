@@ -1,4 +1,7 @@
 import { BreachMap } from "./BreachMap";
+import { breachSummary } from "./breach-data";
+
+const formatNumber = new Intl.NumberFormat("en-US");
 
 export default function Home() {
   return (
@@ -20,18 +23,18 @@ export default function Home() {
       <section className="stat-grid" aria-label="Dataset summary">
         <article className="stat-card">
           <span>Reporting years</span>
-          <strong>2022–2025</strong>
+          <strong>{breachSummary.reportingYears[0]}–{breachSummary.reportingYears.at(-1)}</strong>
           <small>Four complete AGO reporting cycles</small>
         </article>
         <article className="stat-card">
           <span>Mapped breaches</span>
-          <strong>786</strong>
+          <strong>{formatNumber.format(breachSummary.mapped.breaches)}</strong>
           <small>Counted by unique notification ID</small>
         </article>
         <article className="stat-card warning">
           <span>Unknown location</span>
-          <strong>60</strong>
-          <small>7.1% excluded from the map</small>
+          <strong>{formatNumber.format(breachSummary.unknownState.breaches)}</strong>
+          <small>{((breachSummary.unknownState.breaches / breachSummary.totals.breaches) * 100).toFixed(1)}% retained in totals, not mapped</small>
         </article>
       </section>
 
@@ -39,7 +42,7 @@ export default function Home() {
         <div className="map-heading">
           <div>
             <p className="eyebrow">Entity location</p>
-            <h2>Breach notifications by state</h2>
+            <h2>Breach impact by entity state</h2>
           </div>
           <p className="map-instruction">Hover over a state to inspect it</p>
         </div>
