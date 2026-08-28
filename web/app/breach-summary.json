@@ -376,5 +376,71 @@
       "breaches": 0,
       "affected": 0
     }
-  ]
+  ],
+  "charts": {
+    "cyberattackTypes": [
+      {
+        "category": "Ransomware",
+        "breaches": 329,
+        "affected": 9886341
+      },
+      {
+        "category": "Other",
+        "breaches": 114,
+        "affected": 7797325
+      },
+      {
+        "category": "Malware",
+        "breaches": 80,
+        "affected": 2811109
+      },
+      {
+        "category": "Phishing",
+        "breaches": 49,
+        "affected": 356516
+      },
+      {
+        "category": "Unclear/unknown",
+        "breaches": 21,
+        "affected": 1019407
+      },
+      {
+        "category": "Skimmers",
+        "breaches": 6,
+        "affected": 6060
+      }
+    ],
+    "industries": [
+      {
+        "category": "Business",
+        "breaches": 366,
+        "affected": 12931754
+      },
+      {
+        "category": "Health",
+        "breaches": 196,
+        "affected": 10758129
+      },
+      {
+        "category": "Finance",
+        "breaches": 159,
+        "affected": 2883156
+      },
+      {
+        "category": "Education",
+        "breaches": 63,
+        "affected": 1597079
+      },
+      {
+        "category": "Government",
+        "breaches": 32,
+        "affected": 1093226
+      },
+      {
+        "category": "Non-Profit/Charity",
+        "breaches": 30,
+        "affected": 778125
+      }
+    ]
+  }
 }

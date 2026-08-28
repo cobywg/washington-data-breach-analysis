@@ -47,20 +47,55 @@ STATE_METADATA = {
 }
 
 
+def aggregate_categories(data: pd.DataFrame, column: str) -> list[dict]:
+    """Return display-ready breach and affected totals for one category field."""
+    categorized = data.assign(
+        Category=data[column].astype("string").str.strip().fillna("Not reported")
+    )
+    categorized.loc[categorized["Category"].eq(""), "Category"] = "Not reported"
+
+    grouped = (
+        categorized.groupby("Category")
+        .agg(breaches=("Id", "nunique"), affected=("Affected", "sum"))
+        .reset_index()
+        .sort_values(["breaches", "Category"], ascending=[False, True])
+    )
+
+    return [
+        {
+            "category": str(row.Category),
+            "breaches": int(row.breaches),
+            "affected": int(row.affected),
+        }
+        for row in grouped.itertuples(index=False)
+    ]
+
+
 def build_summary(csv_path: Path = SOURCE_CSV) -> dict:
-    """Aggregate unique 2022–2025 notifications by breached entity state."""
+    """Aggregate 2022–2025 notifications for the website's maps and charts."""
     data = pd.read_csv(csv_path)
-    required = {"Id", "YearText", "EntityState", "WashingtoniansAffected"}
+    required = {
+        "Id",
+        "YearText",
+        "EntityState",
+        "WashingtoniansAffected",
+        "DataBreachCause",
+        "CyberattackType",
+        "IndustryType",
+    }
     missing = required.difference(data.columns)
     if missing:
         raise ValueError(f"Missing required columns: {', '.join(sorted(missing))}")
 
+#conver to number, convert invalid into NAN, check if years only contain wanted years
     data["ReportingYear"] = pd.to_numeric(data["YearText"], errors="coerce")
     filtered = data.loc[data["ReportingYear"].isin(REPORTING_YEARS)].copy()
 
+    #check for duplicates
     if filtered["Id"].duplicated().any():
         raise ValueError("Duplicate notification IDs found in selected years")
 
+    #cleaned up data, created new variable.
     filtered["EntityState"] = (
         filtered["EntityState"].astype("string").str.strip().str.upper()
     )
@@ -72,7 +107,7 @@ def build_summary(csv_path: Path = SOURCE_CSV) -> dict:
         .str.replace(",", "", regex=False),
         errors="coerce",
     )
-
+    #only keep valid states, group by state and agg data
     known = filtered.loc[filtered["StateKnown"]]
     grouped = known.groupby("EntityState").agg(
         breaches=("Id", "nunique"),
@@ -100,6 +135,8 @@ def build_summary(csv_path: Path = SOURCE_CSV) -> dict:
         )
 
     unknown = filtered.loc[~filtered["StateKnown"]]
+    cyberattacks = filtered.loc[filtered["DataBreachCause"].eq("Cyberattack")]
+
     return {
         "reportingYears": list(REPORTING_YEARS),
         "totals": {
@@ -116,6 +153,12 @@ def build_summary(csv_path: Path = SOURCE_CSV) -> dict:
             "affected": int(unknown["Affected"].sum()),
         },
         "states": states,
+        "charts": {
+            "cyberattackTypes": aggregate_categories(
+                cyberattacks, "CyberattackType"
+            ),
+            "industries": aggregate_categories(filtered, "IndustryType"),
+        },
     }
 
 

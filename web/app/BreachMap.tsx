@@ -11,6 +11,7 @@ const LAYER_ID = "breach-counts";
 
 const COLORS = ["#202733", "#173f4c", "#126576", "#0b8f9d", "#20c6bb", "#8af5d8"];
 
+// Read the selected metric from the generated state data.
 function metricExpression(metric: MapMetric): mapboxgl.Expression {
   return [
     "match",
@@ -22,7 +23,7 @@ function metricExpression(metric: MapMetric): mapboxgl.Expression {
     0,
   ];
 }
-
+// Use separate thresholds because affected-person totals are much larger.
 function fillColorExpression(metric: MapMetric): mapboxgl.Expression {
   const stops = metric === "breaches"
     ? [1, COLORS[1], 10, COLORS[2], 25, COLORS[3], 50, COLORS[4], 100, COLORS[5]]
@@ -42,6 +43,7 @@ export function BreachMap() {
   useEffect(() => {
     if (!containerRef.current || !TOKEN) return;
 
+    // Create the interactive map once when the component mounts.
     const map = new mapboxgl.Map({
       accessToken: TOKEN,
       container: containerRef.current,
@@ -56,6 +58,7 @@ export function BreachMap() {
 
     map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "top-right");
 
+    // Display both metrics when a visitor hovers over a state.
     const popup = new mapboxgl.Popup({
       closeButton: false,
       closeOnClick: false,
@@ -63,11 +66,13 @@ export function BreachMap() {
     });
 
     map.on("load", () => {
+      // Add state boundaries from Mapbox's Census vector source.
       map.addSource(SOURCE_ID, {
         type: "vector",
         url: "mapbox://mapbox.us_census_states_2015",
       });
 
+      // Color each state according to the selected metric.
       map.addLayer({
         id: LAYER_ID,
         type: "fill",

@@ -73,6 +73,24 @@ h2 { margin: 0; font-size: 25px; letter-spacing: -.03em; }
 .map-popup span { color: var(--muted); font-size: 12px; }
 .map-popup strong { display: block; margin: 3px 0 0; color: var(--accent); font-size: 25px; }
 .map-popup small { display: block; margin-bottom: 8px; color: var(--muted); }
+.charts-section { margin-top: 18px; padding: 28px 26px 24px; border: 1px solid var(--line); border-radius: 20px; background: rgba(17, 26, 34, .9); box-shadow: 0 30px 80px rgba(0,0,0,.2); }
+.charts-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 22px; }
+.charts-heading > div:first-child { max-width: 680px; }
+.charts-heading p:not(.eyebrow) { margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.chart-toggle { flex-shrink: 0; padding: 0; }
+.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.chart-card { padding: 22px; border: 1px solid var(--line); border-radius: 15px; background: #0b141b; }
+.chart-card-heading { min-height: 76px; }
+.chart-card h3 { margin: 0; font-size: 19px; letter-spacing: -.02em; }
+.chart-card-heading p { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.bar-chart { display: grid; gap: 16px; margin: 22px 0 0; padding: 0; list-style: none; }
+.bar-row { min-width: 0; }
+.bar-label { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 7px; font-size: 12px; }
+.bar-label span { overflow: hidden; color: var(--muted); text-overflow: ellipsis; white-space: nowrap; }
+.bar-label strong { flex-shrink: 0; color: var(--ink); font: 600 12px var(--font-geist-mono); }
+.bar-track { height: 9px; overflow: hidden; border-radius: 999px; background: #17232c; }
+.bar-fill { height: 100%; min-width: 2px; border-radius: inherit; background: linear-gradient(90deg, #147d82, var(--accent)); transition: width 240ms ease; }
+.chart-note { margin: 16px 0 0; padding: 12px 14px; border-left: 2px solid var(--warning); background: rgba(246, 180, 76, .06); color: var(--muted); font-size: 12px; line-height: 1.6; }
 
 @media (max-width: 700px) {
   main { width: min(100% - 24px, 1180px); padding-top: 28px; }
@@ -84,4 +102,10 @@ h2 { margin: 0; font-size: 25px; letter-spacing: -.03em; }
   .map-shell { min-height: 500px; }
   .map-footer { grid-template-columns: 1fr; gap: 12px; }
   .legend { right: 14px; bottom: 14px; left: 14px; width: auto; }
+  .charts-section { padding: 22px 14px 18px; }
+  .charts-heading { align-items: start; flex-direction: column; }
+  .chart-toggle { width: 100%; }
+  .chart-toggle button { flex: 1; }
+  .chart-grid { grid-template-columns: 1fr; }
+  .chart-card-heading { min-height: auto; }
 }

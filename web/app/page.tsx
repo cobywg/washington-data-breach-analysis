@@ -1,4 +1,5 @@
 import { BreachMap } from "./BreachMap";
+import { BreachCharts } from "./BreachCharts";
 import { breachSummary } from "./breach-data";
 
 const formatNumber = new Intl.NumberFormat("en-US");
@@ -58,6 +59,8 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      <BreachCharts />
     </main>
   );
 }
